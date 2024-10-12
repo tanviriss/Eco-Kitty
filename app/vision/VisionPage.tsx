@@ -40,12 +40,18 @@ const VisionPage: React.FC = () => {
     }
   }, [isScanning]);
 
+  useEffect(() => {
+    if (detectedCode) {
+      fetchProductInfo(detectedCode);
+    }
+  }, [detectedCode]);
+
   const processCode = (code: string): string => {
     if (code.length <= 2) return '';
     return code;
   };
 
-  const fetchProductInfo = async () => {
+  const fetchProductInfo = async (code: string) => {
     try {
       setError('');
       const response = await fetch('/api/itemScrape', {
@@ -53,7 +59,7 @@ const VisionPage: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ code: detectedCode }),
+        body: JSON.stringify({ code }),
       });
 
       if (!response.ok) {
@@ -86,8 +92,6 @@ const VisionPage: React.FC = () => {
               const rawCode = result.getText();
               const processedCode = processCode(rawCode);
               setDetectedCode(processedCode);
-              fetchProductInfo();
-              setIsScanning(false);
               setCameraStatus('Code detected');
             }
             if (error && !(error.message && error.message.includes("NotFoundException"))) {
@@ -114,7 +118,6 @@ const VisionPage: React.FC = () => {
     e.preventDefault();
     const processedCode = processCode(manualBarcode);
     setDetectedCode(processedCode);
-    fetchProductInfo();
     setManualBarcode('');
   };
 
@@ -167,6 +170,13 @@ const VisionPage: React.FC = () => {
         <div className="mt-4 p-4 bg-white rounded-lg shadow-md w-full max-w-md">
           <p className="text-xl font-bold text-center text-orange-600">{productInfo.name}</p>
           {productInfo.imageUrl && <img src={productInfo.imageUrl} alt={productInfo.name} className="w-full h-auto rounded-lg" />}
+        </div>
+      )}
+
+      {/* Error Display */}
+      {error && (
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg w-full max-w-md">
+          <p>{error}</p>
         </div>
       )}
     </div>
