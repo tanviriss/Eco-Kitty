@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const { code } = await request.json();
     console.log('Barcode received:', code);
 
-    const response = await axios.get(`https://scanbot.io/lookup-tool/${code}`, {
+    const response = await axios.get(`https://www.barcodelookup.com/${code}`, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }

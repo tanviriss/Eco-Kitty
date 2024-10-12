@@ -42,7 +42,7 @@ const VisionPage: React.FC = () => {
 
   const processCode = (code: string): string => {
     if (code.length <= 2) return '';
-    return code.slice(1, -1);
+    return code;
   };
 
   const fetchProductInfo = async () => {
