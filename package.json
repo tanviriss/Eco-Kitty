@@ -12,8 +12,13 @@
     "@supabase/ssr": "^0.5.1",
     "@supabase/supabase-js": "^2.45.4",
     "@zxing/library": "^0.21.3",
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
     "lucide-react": "^0.452.0",
     "next": "14.2.15",
+    "puppeteer": "^23.5.3",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "react": "^18",
     "react-dom": "^18"
   },

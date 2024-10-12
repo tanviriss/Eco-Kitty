@@ -1,13 +1,21 @@
 'use client'
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Search } from 'lucide-react';
 import { BrowserMultiFormatReader, DecodeHintType, BarcodeFormat, Result } from '@zxing/library';
+
+interface ProductInfo {
+  name: string;
+  imageUrl: string;
+}
 
 const VisionPage: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [manualBarcode, setManualBarcode] = useState('');
   const [detectedCode, setDetectedCode] = useState<string>('');
   const [cameraStatus, setCameraStatus] = useState<string>('Not initialized');
+  const [productInfo, setProductInfo] = useState<ProductInfo>({ name: '', imageUrl: '' });
+  const [error, setError] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
 
@@ -37,6 +45,35 @@ const VisionPage: React.FC = () => {
     return code.slice(1, -1);
   };
 
+  const fetchProductInfo = async () => {
+    try {
+      setError('');
+      const response = await fetch('/api/itemScrape', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: detectedCode }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data: ProductInfo = await response.json();
+      console.log('API response:', data);
+      
+      if (data.name || data.imageUrl) {
+        setProductInfo(data);
+      } else {
+        setError('No product information found');
+      }
+    } catch (error) {
+      console.error('Error fetching product info:', error);
+      setError('Failed to fetch product information');
+    }
+  };
+
   const startScanning = async () => {
     if (readerRef.current && videoRef.current) {
       try {
@@ -49,6 +86,7 @@ const VisionPage: React.FC = () => {
               const rawCode = result.getText();
               const processedCode = processCode(rawCode);
               setDetectedCode(processedCode);
+              fetchProductInfo();
               setIsScanning(false);
               setCameraStatus('Code detected');
             }
@@ -76,6 +114,7 @@ const VisionPage: React.FC = () => {
     e.preventDefault();
     const processedCode = processCode(manualBarcode);
     setDetectedCode(processedCode);
+    fetchProductInfo();
     setManualBarcode('');
   };
 
@@ -120,6 +159,14 @@ const VisionPage: React.FC = () => {
           <p className="text-xl font-bold text-center text-orange-600">
             The code is: <span className="text-orange-800">{detectedCode}</span>
           </p>
+        </div>
+      )}
+
+      {/* Product Info Display */}
+      {productInfo.name && (
+        <div className="mt-4 p-4 bg-white rounded-lg shadow-md w-full max-w-md">
+          <p className="text-xl font-bold text-center text-orange-600">{productInfo.name}</p>
+          {productInfo.imageUrl && <img src={productInfo.imageUrl} alt={productInfo.name} className="w-full h-auto rounded-lg" />}
         </div>
       )}
     </div>
