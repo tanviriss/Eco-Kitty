@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const { code } = await request.json();
     console.log('Barcode received:', code);
 
-    const response = await axios.get(`https://www.barcodelookup.com/${code}`, {
+    const response = await axios.get(`https://go-upc.com/search?q=${code}`, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
@@ -16,8 +16,8 @@ export async function POST(request: Request) {
     const $ = cheerio.load(response.data);
 
     // Update to use the correct selectors
-    const name = $('[data-lookup-title]').text().trim();
-    const imageUrl = $('img').attr('src'); // Fetching the first image's src
+    const name = $('.product-name').text();
+    const imageUrl = $('.product-image img').attr('src');
 
     const productInfo = {
       name: name || '',
