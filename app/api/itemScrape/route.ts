@@ -84,7 +84,7 @@ async function getRecycleInfo(productName: string): Promise<string> {
         },
         {
           role: "user",
-          content: `Is this product recyclable and if so, what bin should I throw it in?: ${productName}? Please provide a brief, informative answer.`
+          content: `Is this product's bag/container/usually the item people discard recyclable and if so, what bin should I throw it in?: ${productName}? Please provide a brief, informative answer.`
         }
       ],
     });
