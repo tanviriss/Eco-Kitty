@@ -8,6 +8,7 @@ interface ProductInfo {
   name: string;
   imageUrl: string;
   carbonFootprint: string;
+  recycleInfo: string;
 }
 
 const VisionPage: React.FC = () => {
@@ -15,7 +16,7 @@ const VisionPage: React.FC = () => {
   const [manualBarcode, setManualBarcode] = useState('');
   const [detectedCode, setDetectedCode] = useState<string>('');
   const [cameraStatus, setCameraStatus] = useState<string>('Not initialized');
-  const [productInfo, setProductInfo] = useState<ProductInfo>({ name: '', imageUrl: '', carbonFootprint: '' });
+  const [productInfo, setProductInfo] = useState<ProductInfo>({ name: '', imageUrl: '', carbonFootprint: '', recycleInfo: '' });
   const [error, setError] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
@@ -70,7 +71,7 @@ const VisionPage: React.FC = () => {
       const data: ProductInfo = await response.json();
       console.log('API response:', data);
       
-      if (data.name || data.imageUrl || data.carbonFootprint) {
+      if (data.name || data.imageUrl || data.carbonFootprint || data.recycleInfo) {
         setProductInfo(data);
       } else {
         setError('No product information found');
@@ -175,6 +176,12 @@ const VisionPage: React.FC = () => {
             <div className="mt-4 p-3 bg-green-100 rounded-lg">
               <p className="text-lg font-semibold text-green-800">Carbon Footprint:</p>
               <p className="text-green-700">{productInfo.carbonFootprint}</p>
+            </div>
+          )}
+          {productInfo.recycleInfo && (
+            <div className="mt-4 p-3 bg-blue-100 rounded-lg">
+              <p className="text-lg font-semibold text-blue-800">Recycling Information:</p>
+              <p className="text-blue-700">{productInfo.recycleInfo}</p>
             </div>
           )}
         </div>

@@ -40,7 +40,10 @@ export async function POST(request: Request) {
     // Get carbon footprint information from OpenAI
     const carbonFootprint = await getCarbonFootprintInfo(productInfo.name);
 
-    return NextResponse.json({ ...productInfo, carbonFootprint });
+    // Get recycling information from OpenAI
+    const recycleInfo = await getRecycleInfo(productInfo.name);
+
+    return NextResponse.json({ ...productInfo, carbonFootprint, recycleInfo });
   } catch (error) {
     console.error('Error processing request:', error);
     return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
@@ -67,5 +70,28 @@ async function getCarbonFootprintInfo(productName: string): Promise<string> {
   } catch (error) {
     console.error('Error getting carbon footprint info:', error);
     return "Error retrieving carbon footprint information.";
+  }
+}
+
+async function getRecycleInfo(productName: string): Promise<string> {
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant that provides information about recycling and which bins to throw out products."
+        },
+        {
+          role: "user",
+          content: `Is this product recyclable and if so, what bin should I throw it in?: ${productName}? Please provide a brief, informative answer.`
+        }
+      ],
+    });
+
+    return completion.choices[0].message.content || "Unable to determine recycling information.";
+  } catch (error) {
+    console.error('Error getting recycling info:', error);
+    return "Error retrieving recycling information.";
   }
 }
