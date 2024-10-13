@@ -7,6 +7,7 @@ import { BrowserMultiFormatReader, DecodeHintType, BarcodeFormat, Result } from 
 interface ProductInfo {
   name: string;
   imageUrl: string;
+  carbonFootprint: string;
 }
 
 const VisionPage: React.FC = () => {
@@ -14,7 +15,7 @@ const VisionPage: React.FC = () => {
   const [manualBarcode, setManualBarcode] = useState('');
   const [detectedCode, setDetectedCode] = useState<string>('');
   const [cameraStatus, setCameraStatus] = useState<string>('Not initialized');
-  const [productInfo, setProductInfo] = useState<ProductInfo>({ name: '', imageUrl: '' });
+  const [productInfo, setProductInfo] = useState<ProductInfo>({ name: '', imageUrl: '', carbonFootprint: '' });
   const [error, setError] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
@@ -69,7 +70,7 @@ const VisionPage: React.FC = () => {
       const data: ProductInfo = await response.json();
       console.log('API response:', data);
       
-      if (data.name || data.imageUrl) {
+      if (data.name || data.imageUrl || data.carbonFootprint) {
         setProductInfo(data);
       } else {
         setError('No product information found');
@@ -169,7 +170,13 @@ const VisionPage: React.FC = () => {
       {productInfo.name && (
         <div className="mt-4 p-4 bg-white rounded-lg shadow-md w-full max-w-md">
           <p className="text-xl font-bold text-center text-orange-600">{productInfo.name}</p>
-          {productInfo.imageUrl && <img src={productInfo.imageUrl} alt={productInfo.name} className="w-full h-auto rounded-lg" />}
+          {productInfo.imageUrl && <img src={productInfo.imageUrl} alt={productInfo.name} className="w-full h-auto rounded-lg mb-4" />}
+          {productInfo.carbonFootprint && (
+            <div className="mt-4 p-3 bg-green-100 rounded-lg">
+              <p className="text-lg font-semibold text-green-800">Carbon Footprint:</p>
+              <p className="text-green-700">{productInfo.carbonFootprint}</p>
+            </div>
+          )}
         </div>
       )}
 
