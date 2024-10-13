@@ -1,4 +1,4 @@
-
+import React from 'react';
 import 'boxicons/css/boxicons.min.css';
 import { headers } from "next/headers";
 import Link from "next/link";

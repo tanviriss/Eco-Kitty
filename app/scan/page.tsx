@@ -1,3 +1,4 @@
+import React from "react";
 import VisionPage from "../vision/VisionPage"
 import 'boxicons/css/boxicons.min.css';
 import { headers } from "next/headers";
