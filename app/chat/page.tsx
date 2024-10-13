@@ -1,7 +1,9 @@
+
 import 'boxicons/css/boxicons.min.css';
 import { headers } from "next/headers";
 import Link from "next/link";
 import { Metadata } from "next";
+import EcoKittyChat from './Chatbot';
 
 export const metadata: Metadata = {
     title: "Eco Kitty",
@@ -54,6 +56,7 @@ const Chat = () => {
                 <NavButton href="/scan" icon="bx-qr-scan" label="scan" />
                 </nav>
                 {//put component here
+                <EcoKittyChat/>
                 }
             </main>
             </div>
