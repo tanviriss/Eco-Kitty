@@ -19,7 +19,6 @@ const Leaderboard = () => {
         .from('profiles')
         .select('id, name, points')
         .order('points', { ascending: false });
-
       if (error) {
         console.error('Error fetching profiles:', error);
       } else {
@@ -28,6 +27,17 @@ const Leaderboard = () => {
     };
 
     fetchProfiles();
+
+    // Set up real-time subscription
+    const subscription = supabase
+      .channel('profiles_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, fetchProfiles)
+      .subscribe();
+
+    // Cleanup subscription on component unmount
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const getCatImage = (index: number) => `/kitty${index + 1}.png`;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'boxicons/css/boxicons.min.css';
 import Link from "next/link";
 import Leaderboard from './statsprop';
@@ -26,21 +26,63 @@ const Stats = () => {
     { id: 2, text: "Avoid plastic", completed: false },
     { id: 3, text: "Energy free hour - no electricity", completed: false }
   ]);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [pointsUpdated, setPointsUpdated] = useState(false);
 
   const supabase = createClient();
 
-  const toggleQuest = (id: number) => {
-    const before = quests.length
-    setQuests(quests.map(quest => 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUserId(user.id);
+      }
+    };
+    fetchUserId();
+  }, []);
+
+  const toggleQuest = async (id: number) => {
+    if (!userId) {
+      console.error("User not logged in");
+      return;
+    }
+
+    const updatedQuests = quests.map(quest => 
       quest.id === id ? { ...quest, completed: !quest.completed } : quest
-    ));
-    const after = quests.length
-    if (before === after) {
-      console.log("Quest not found");
+    );
+    
+    const completedQuest = updatedQuests.find(q => q.id === id);
+    
+    if (completedQuest && completedQuest.completed) {
+      try {
+        // Fetch current points
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('points')
+          .eq('id', userId)
+          .single();
+
+        if (error) throw error;
+
+        const currentPoints = data.points || 0;
+        
+        // Update points
+        const { error: updateError } = await supabase
+          .from('profiles')
+          .update({ points: currentPoints + 1 })
+          .eq('id', userId);
+
+        if (updateError) throw updateError;
+
+        console.log("Points updated successfully");
+        setPointsUpdated(true);
+        setTimeout(() => setPointsUpdated(false), 2000); // Reset after 2 seconds
+      } catch (error) {
+        console.error("Error updating points:", error);
+      }
     }
-    else {
-      console.log("Quest found");
-    }
+
+    setQuests(updatedQuests);
   };
 
   return (
@@ -104,6 +146,13 @@ const Stats = () => {
               ))}
             </ul>
           </div>
+        </div>
+      )}
+
+      {/* Points Updated Notification */}
+      {pointsUpdated && (
+        <div className="fixed bottom-24 right-4 bg-green-500 text-white px-4 py-2 rounded-full animate-bounce">
+          +1 Point!
         </div>
       )}
     </div>
