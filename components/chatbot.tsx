@@ -15,10 +15,10 @@ import { Label } from "@/components/ui/label"
 export function DialogCloseButton() {
   return (
     <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
+        <DialogTrigger><img className="w-5 h-5" src="app/public/kittyquestion.png"/></DialogTrigger>
         <DialogContent>
             <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle>Chat with Eco Kitty</DialogTitle>
             <DialogDescription>
                 This action cannot be undone. This will permanently delete your account
                 and remove your data from our servers.
