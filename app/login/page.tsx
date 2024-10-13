@@ -9,14 +9,14 @@ export default function LoginPage() {
         <div className="text-center mb-6 sm:mb-8">
           <Image src="/kitty2.png" alt="Eco Kitty Logo" width={80} height={80} className="mx-auto animate-bounce" />
           <h1 className="text-2xl sm:text-3xl font-bold text-green-800 mt-4">Welcome to Eco Kitty!</h1>
-          <p className="text-sm sm:text-base text-green-600 mt-2">Where saving the planet is the purr-fect adventure!</p>
+          <p className="text-sm sm:text-base text-green-600 mt-2">Saving the planet is the purr-fect adventure!</p>
         </div>
         
         <form className="space-y-4 sm:space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-green-700 mb-1">Email:</label>
             <input 
-              className="w-full px-3 py-2 border border-green-300 rounded-md text-green-900 placeholder-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base"
+              className="w-full px-3 py-2 border border-green-400 rounded-md text-green-900 placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base"
               id="email" 
               name="email" 
               type="email" 
@@ -27,7 +27,7 @@ export default function LoginPage() {
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-green-700 mb-1">Password:</label>
             <input 
-              className="w-full px-3 py-2 border border-green-300 rounded-md text-green-900 placeholder-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base"
+              className="w-full px-3 py-2 border border-green-400 rounded-md text-green-900 placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base"
               id="password" 
               name="password" 
               type="password" 
@@ -52,7 +52,6 @@ export default function LoginPage() {
         </form>
         
         <div className="mt-6 sm:mt-8 text-center text-green-700">
-          <p className="font-bold text-sm sm:text-base">Did you know?</p>
           <p className="italic mt-2 text-xs sm:text-sm">"What do you call a cat who recycles? Litter-ally awesome!"</p>
         </div>
       </div>

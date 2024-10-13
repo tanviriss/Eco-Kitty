@@ -124,7 +124,7 @@ const VisionPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-bg-green-100 to-bg-green-100 p-6 rounded-lg">
+    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-bg-green-200 to-bg-green-200 p-6 rounded-lg">
       <h1 className="text-3xl font-bold mb-6 text-green-800">Barcode Scanner</h1>
       
       {/* Manual Barcode Input */}
