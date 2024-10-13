@@ -19,6 +19,7 @@ const Leaderboard = () => {
         .from('profiles')
         .select('id, name, points')
         .order('points', { ascending: false });
+
       if (error) {
         console.error('Error fetching profiles:', error);
       } else {
@@ -27,17 +28,6 @@ const Leaderboard = () => {
     };
 
     fetchProfiles();
-
-    // Set up real-time subscription
-    const subscription = supabase
-      .channel('profiles_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, fetchProfiles)
-      .subscribe();
-
-    // Cleanup subscription on component unmount
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
   const getCatImage = (index: number) => `/kitty${index + 1}.png`;
@@ -48,19 +38,17 @@ const Leaderboard = () => {
       <div className="space-y-2">
         {profiles.map((profile, index) => (
           <div key={profile.id} className="flex items-center bg-white p-2 rounded-md shadow">
-            <div className="w-12 h-12 mr-3 relative">
-              {index < 5 ? (
+            {index < 5 && (
+              <div className="w-12 h-12 mr-3 relative">
                 <Image
                   src={getCatImage(index)}
                   alt={`Cat ${index + 1}`}
                   fill
                   style={{ objectFit: 'contain' }}
                 />
-              ) : (
-                <div className="w-full h-full" /> // Placeholder for consistent spacing
-              )}
-            </div>
-            <div className="flex-grow">
+              </div>
+            )}
+            <div className={`flex-grow ${index >= 5 ? 'ml-15' : ''}`}>
               <div className="font-semibold">{profile.name}</div>
               <div className="text-sm text-gray-500">{profile.points} points</div>
             </div>

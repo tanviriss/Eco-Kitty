@@ -32,7 +32,7 @@ export default function LoginPage() {
               name="password" 
               type="password" 
               required 
-              placeholder="Shh... it's a secret!"
+              placeholder="Shh... it&apos;s a secret!"
             />
           </div>
           <div className="flex flex-col space-y-3 sm:space-y-4">
@@ -52,7 +52,7 @@ export default function LoginPage() {
         </form>
         
         <div className="mt-6 sm:mt-8 text-center text-green-700">
-          <p className="italic mt-2 text-xs sm:text-sm">"What do you call a cat who recycles? Litter-ally awesome!"</p>
+          <p className="italic mt-2 text-xs sm:text-sm">&quot;What do you call a cat who recycles? Litter-ally awesome!&quot;</p>
         </div>
       </div>
     </div>

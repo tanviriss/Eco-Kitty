@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Camera, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { BrowserMultiFormatReader, DecodeHintType, BarcodeFormat, Result } from '@zxing/library';
 
 interface ProductInfo {

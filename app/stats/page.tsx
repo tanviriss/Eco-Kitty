@@ -39,7 +39,7 @@ const Stats = () => {
       }
     };
     fetchUserId();
-  }, []);
+  }, [supabase]);
 
   const toggleQuest = async (id: number) => {
     if (!userId) {
@@ -125,7 +125,7 @@ const Stats = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-2xl p-6 w-11/12 max-w-2xl h-5/6 flex flex-col">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-3xl font-bold text-green-700">Today's Quests</h2>
+              <h2 className="text-3xl font-bold text-green-700">Today&apos;s Quests</h2>
               <button onClick={() => setShowQuests(false)} className="text-gray-500 hover:text-gray-700">
                 <i className="bx bx-x text-4xl"></i>
               </button>

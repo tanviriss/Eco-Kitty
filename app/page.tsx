@@ -67,10 +67,10 @@ export default function Home() {
         <section id="about" className="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-xl p-8 sm:p-12 mb-16 sm:mb-24 shadow-lg">
           <h3 className="text-4xl sm:text-5xl font-bold mb-8 sm:mb-10 text-center text-green-900">About Us</h3>
           <p className="text-xl sm:text-2xl leading-relaxed text-green-800 mb-6">
-            Eco Kitty is more than just an app – it's a movement to empower the next generation of environmental stewards. Born from a passion for sustainability and a love for our feline friends, Eco Kitty combines cutting-edge technology with playful learning experiences. Our mission is to make environmental education fun, interactive, and accessible to children around the world. 
+            Eco Kitty is more than just an app &ndash; it&apos;s a movement to empower the next generation of environmental stewards. Born from a passion for sustainability and a love for our feline friends, Eco Kitty combines cutting-edge technology with playful learning experiences. Our mission is to make environmental education fun, interactive, and accessible to children around the world. 
           </p>
           <p className="text-xl sm:text-2xl leading-relaxed text-green-800">
-            Through our AI-powered chat, innovative recycling scanner, and engaging carbon footprint tracker, we're helping kids develop eco-friendly habits that will last a lifetime. Join us in our quest to create a greener, cleaner planet – one paw print at a time!
+            Through our AI-powered chat, innovative recycling scanner, and engaging carbon footprint tracker, we&apos;re helping kids develop eco-friendly habits that will last a lifetime. Join us in our quest to create a greener, cleaner planet &ndash; one paw print at a time!
           </p>
         </section>
       </main>
