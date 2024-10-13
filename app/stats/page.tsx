@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import 'boxicons/css/boxicons.min.css';
 import Link from "next/link";
+import Leaderboard from './statsprop';
+import { createClient } from '@/utils/supabase/client';
 
 function NavButton({ href, icon, label }: { href: string; icon: string; label: string }) {
   return (
@@ -25,10 +27,20 @@ const Stats = () => {
     { id: 3, text: "Energy free hour - no electricity", completed: false }
   ]);
 
+  const supabase = createClient();
+
   const toggleQuest = (id: number) => {
+    const before = quests.length
     setQuests(quests.map(quest => 
       quest.id === id ? { ...quest, completed: !quest.completed } : quest
     ));
+    const after = quests.length
+    if (before === after) {
+      console.log("Quest not found");
+    }
+    else {
+      console.log("Quest found");
+    }
   };
 
   return (
@@ -52,7 +64,9 @@ const Stats = () => {
             <NavButton href="/chat" icon="bx-chat" label="chat" />
             <NavButton href="/scan" icon="bx-qr-scan" label="scan" />
           </nav>
-          {/* put component here */}
+          {
+            <Leaderboard />
+          }
         </main>
       </div>
 
