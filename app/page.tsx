@@ -41,7 +41,7 @@ export default function Home() {
             <Link href="/login" className="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 sm:py-5 px-6 sm:px-8 rounded-full text-center text-2xl sm:text-3xl transition duration-300 transform hover:scale-105 shadow-md">
               Login and Save the Planet!
             </Link>
-            <Link href="/signup" className="block w-full bg-orange-400 hover:bg-orange-500 text-white font-bold py-4 sm:py-5 px-6 sm:px-8 rounded-full text-center text-2xl sm:text-3xl transition duration-300 transform hover:scale-105 shadow-md">
+            <Link href="/login" className="block w-full bg-orange-400 hover:bg-orange-500 text-white font-bold py-4 sm:py-5 px-6 sm:px-8 rounded-full text-center text-2xl sm:text-3xl transition duration-300 transform hover:scale-105 shadow-md">
               Sign Up for Eco Missions!
             </Link>
           </div>

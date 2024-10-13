@@ -20,6 +20,7 @@ Eco Kitty is an interactive, educational app designed to teach children about su
 - **Authentication**: Supabase Auth
 - **AI Integration**: OpenAI API
 - **Web Scraping**: Cheerio
+- **UPC Data**: Zxing Library
 
 ## Code Structure and Explanation
 
