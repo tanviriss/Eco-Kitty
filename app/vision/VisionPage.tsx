@@ -124,21 +124,21 @@ const VisionPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-orange-100 to-orange-200 p-6 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold mb-6 text-orange-800">Barcode Scanner</h1>
+    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-bg-green-100 to-bg-green-100 p-6 rounded-lg">
+      <h1 className="text-3xl font-bold mb-6 text-green-800">Barcode Scanner</h1>
       
       {/* Manual Barcode Input */}
       <form onSubmit={handleManualSubmit} className="w-full max-w-md mb-6">
-        <div className="flex items-center border-b-2 border-orange-400 py-2">
+        <div className="flex items-center border-b-2 border-green-400 py-2">
           <input
-            className="appearance-none bg-transparent border-none w-full text-orange-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder-orange-300"
+            className="appearance-none bg-transparent border-none w-full text-green-700 mr-3 py-1 px-2 leading-tight focus:outline-none placeholder-green-500"
             type="text"
             placeholder="Enter barcode manually"
             value={manualBarcode}
             onChange={(e) => setManualBarcode(e.target.value)}
           />
           <button
-            className="flex-shrink-0 bg-orange-500 hover:bg-orange-700 border-orange-500 hover:border-orange-700 text-sm border-4 text-white py-1 px-2 rounded transition duration-300 ease-in-out transform hover:scale-105"
+            className="flex-shrink-0 bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700 text-sm border-4 text-white py-1 px-2 rounded transition duration-300 ease-in-out transform hover:scale-105"
             type="submit"
           >
             <Search size={24} />
@@ -150,19 +150,19 @@ const VisionPage: React.FC = () => {
       <div className="w-full max-w-md mb-4">
         <video ref={videoRef} className="w-full h-72 bg-black rounded-lg shadow-inner" />
         <button
-          className="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+          className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
           onClick={() => setIsScanning(!isScanning)}
         >
           {isScanning ? 'Stop Scanning' : 'Start Scanning'}
         </button>
-        <p className="mt-2 text-center text-sm text-orange-700">{cameraStatus}</p>
+        <p className="mt-2 text-center text-sm text-green-700">{cameraStatus}</p>
       </div>
       
       {/* Detected Code */}
       {detectedCode && (
         <div className="mt-4 p-4 bg-white rounded-lg shadow-md w-full max-w-md">
-          <p className="text-xl font-bold text-center text-orange-600">
-            The code is: <span className="text-orange-800">{detectedCode}</span>
+          <p className="text-xl font-bold text-center text-green-600">
+            The code is: <span className="text-green-800">{detectedCode}</span>
           </p>
         </div>
       )}
@@ -170,7 +170,7 @@ const VisionPage: React.FC = () => {
       {/* Product Info Display */}
       {productInfo.name && (
         <div className="mt-4 p-4 bg-white rounded-lg shadow-md w-full max-w-md">
-          <p className="text-xl font-bold text-center text-orange-600">{productInfo.name}</p>
+          <p className="text-xl font-bold text-center text-green-600">{productInfo.name}</p>
           {productInfo.imageUrl && <img src={productInfo.imageUrl} alt={productInfo.name} className="w-full h-auto rounded-lg mb-4" />}
           {productInfo.carbonFootprint && (
             <div className="mt-4 p-3 bg-green-100 rounded-lg">
